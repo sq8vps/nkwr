@@ -7,9 +7,9 @@ void GraphBuildEdgeList(Matrix<struct Vertex> &graph)
 {
     for(int x = 0; x < graph.size(); x++) //loop for vertices rows
     {
-        for(int y = 0; y < graph[x].size(); y++) //loop for vertices columns
+        for(int y = 0; y < graph.at(x).size(); y++) //loop for vertices columns
         {
-            struct Vertex *vertex = &graph[x][y];
+            struct Vertex &vertex = graph.at(x).at(y);
             struct Edge *e = nullptr;
             for(int dx = -1; dx <= 1; dx++) //loop for neighboring cells
             {
@@ -17,7 +17,7 @@ void GraphBuildEdgeList(Matrix<struct Vertex> &graph)
                 {
                     //check if inside the matrix
                     if(((x + dx) >= 0) && ((x + dx) < graph.size())
-                    && ((y + dy) >= 0) && ((y + dy) < graph[x].size())
+                    && ((y + dy) >= 0) && ((y + dy) < graph.at(x).size())
 #ifdef GRAPH_ALLOW_DIAGONAL
                     //skip zero delta case
                     && (!((dx == 0) && (dy == 0)))
@@ -28,15 +28,15 @@ void GraphBuildEdgeList(Matrix<struct Vertex> &graph)
                     )
                     {
                         //get neighbor
-                        struct Vertex *neighbor = &graph[x + dx][y + dy];
+                        struct Vertex &neighbor = graph.at(x + dx).at(y + dy);
                         //find edge directed to the neighbor
-                        if(neighbor->value > vertex->value)
+                        if(neighbor.value > vertex.value)
                         {
                             struct Edge e;
                             //weight is the difference between the amount of cheese
-                            e.weight = neighbor->value - vertex->value;
-                            e.destination = neighbor;
-                            vertex->edges.push_back(e);
+                            e.weight = neighbor.value - vertex.value;
+                            e.destination = &neighbor;
+                            vertex.edges.push_back(e);
                         }
                     }
                 }
