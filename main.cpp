@@ -2,21 +2,47 @@
 #include <string>
 #include "graph.hpp"
 #include "dijkstra.hpp"
+#include "graph_generator.hpp"
 
 int main(int argc, char **argv)
 {
+    std::string path; //file path
     Matrix<struct Vertex> graph; //input matrix/graph
     int N{0}; //square matrix dimension
 
     //check argument count
     if(argc < 2)
     {
-        std::cout << "Input file must be specified\n" << std::endl;
+        std::cout << "Usage: " << argv[0] << " [-g <dimension>]/<file>" << std::endl 
+            << "Provide input file or use -g <dimension> to generate random matrix" << std::endl;
         return 0;
     }
+    else
+    {
+        if(std::string(argv[1]) == "-g") // Option -g: generate graph nxn, Argument: int n
+        {  
+            if(argc == 2)
+            {
+                std::cout << "Matrix dimension must be specified" << std::endl;
+                return -1;
+            }
+            //generate graph n x n in file
+            path = GraphGenerate(argv[2]);
+            if(path.empty())
+            {
+                return -1;
+            }
+        }      
+        else
+        {
+            path = argv[1];
+        }   
+    }
 
-    //read graph from file and store its dimensions
-    N = GraphReadFromFile(argv[1], graph);
+    std::cout << "Reading from " << path << std::endl;
+
+    N = GraphReadFromFile(path, graph);
+
     if(N < 0) //exit on failure
         return -1;
 
