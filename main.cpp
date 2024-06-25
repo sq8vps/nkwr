@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     //build edge list from vertices
     GraphBuildEdgeList(graph);
 
-    graph.at(0).at(0).weight = 0;
+
 
     //find vertex with the highest cost
     auto &coordinates = FindLongestPath(graph)->xy;

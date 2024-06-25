@@ -1,4 +1,5 @@
 #include "algo.hpp"
+#include <climits>
 
 /**
  * @brief Calculate longest paths to each vertex recursively
@@ -30,6 +31,7 @@ static void CalculatePathLengths(Vertex &vertex)
 Vertex* FindLongestPath(Graph &graph)
 {
     //start recursive path cost calculation from (1,1)
+    graph.at(0).at(0).weight = 0;
     CalculatePathLengths(graph.at(0).at(0));
 
     //simply find the biggest path cost element
