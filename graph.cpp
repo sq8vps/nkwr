@@ -2,8 +2,9 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <climits>
 
-void GraphBuildEdgeList(Matrix<struct Vertex> &graph)
+void GraphBuildEdgeList(Graph &graph)
 {
     for(int x = 0; x < graph.size(); x++) //loop for vertices rows
     {
@@ -32,11 +33,7 @@ void GraphBuildEdgeList(Matrix<struct Vertex> &graph)
                         //find edge directed to the neighbor
                         if(neighbor.value > vertex.value)
                         {
-                            struct Edge e;
-                            //weight is the difference between the amount of cheese
-                            e.weight = neighbor.value - vertex.value;
-                            e.destination = &neighbor;
-                            vertex.edges.push_back(e);
+                            vertex.edges.push_back(neighbor);
                         }
                     }
                 }
@@ -45,7 +42,7 @@ void GraphBuildEdgeList(Matrix<struct Vertex> &graph)
     }
 }
 
-int GraphReadFromFile(std::string path, Matrix<Vertex> &graph)
+int GraphReadFromFile(std::string path, Graph &graph)
 {
     //open file
     std::ifstream file(path);
@@ -77,7 +74,7 @@ int GraphReadFromFile(std::string path, Matrix<Vertex> &graph)
             struct Vertex v;
             v.xy.first = rows + 1;
             v.xy.second = cols + 1;
-            v.weight = 0;
+            v.weight = INT_MIN;
             v.edges.clear();
             v.value = n;
             v.used = false;

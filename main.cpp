@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
 #include "graph.hpp"
-#include "dijkstra.hpp"
+#include "algo.hpp"
 #include "graph_generator.hpp"
 
 int main(int argc, char **argv)
 {
     std::string path; //file path
-    Matrix<struct Vertex> graph; //input matrix/graph
+    Graph graph; //input matrix/graph
     int N{0}; //square matrix dimension
 
     //check argument count
@@ -48,12 +48,11 @@ int main(int argc, char **argv)
 
     //build edge list from vertices
     GraphBuildEdgeList(graph);
-    
-    //calculate path costs using modified Dijkstra algorithm
-    DijkstraFindHighestCostPaths(graph);
+
+    graph.at(0).at(0).weight = 0;
 
     //find vertex with the highest cost
-    auto &coordinates = DijkstraFindHighestWeight(graph, false)->xy;
+    auto &coordinates = FindLongestPath(graph)->xy;
     
     std::cout << "Highest cost cell is at (" << coordinates.first << ", " << coordinates.second << ")" << std::endl;
 
