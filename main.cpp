@@ -39,17 +39,19 @@ int main(int argc, char **argv)
         }   
     }
 
-    std::cout << "Reading from " << path << std::endl;
+    std::cout << "Reading from " << path << "..." << std::endl;
 
     N = GraphReadFromFile(path, graph);
 
     if(N < 0) //exit on failure
         return -1;
 
+    std::cout << "Building edge list..." << std::endl;
+
     //build edge list from vertices
     GraphBuildEdgeList(graph);
 
-
+    std::cout << "Calculating..." << std::endl;
 
     //find vertex with the highest cost
     auto &coordinates = FindLongestPath(graph)->xy;
