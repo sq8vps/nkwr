@@ -18,7 +18,7 @@ static void CalculatePathLengths(Vertex &vertex)
         //if it is bigger, that is, the new paths cost is higher, then replace the cost
         //and do a deeper recursive search
         //otherwise skip the child
-        int weight = vertex.weight + child.get().value;
+        long long int weight = vertex.weight + child.get().value;
         if(child.get().weight < weight)
         {
             child.get().weight = weight;
@@ -35,7 +35,7 @@ Vertex* FindLongestPath(Graph &graph)
     CalculatePathLengths(graph.at(0).at(0));
 
     //simply find the biggest path cost element
-    int distance = INT_MIN;
+    long long int distance = LONG_LONG_MIN;
     Vertex *farthest = nullptr;
     for(auto &row : graph)
     {

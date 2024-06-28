@@ -74,7 +74,7 @@ int GraphReadFromFile(std::string path, Graph &graph)
             struct Vertex v;
             v.xy.first = rows + 1;
             v.xy.second = cols + 1;
-            v.weight = INT_MIN;
+            v.weight = LONG_LONG_MIN;
             v.edges.clear();
             v.value = n;
             v.used = false;

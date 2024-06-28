@@ -34,7 +34,7 @@ struct Vertex
 
     //algorithm-dependent members
     bool used; /**< Was this vertex already used during search? */
-    int weight; /**< Calculated traversal cost when reaching this vertex */
+    long long int weight; /**< Calculated traversal cost when reaching this vertex */
 };
 
 using Graph = Matrix<struct Vertex>;
